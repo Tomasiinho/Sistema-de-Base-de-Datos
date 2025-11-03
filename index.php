@@ -1,103 +1,56 @@
 <?php
+
 session_start();
 
-// Verificar que el usuario haya iniciado sesión
-if (!isset($_SESSION["user_id"])) {
-    header("Location: login.php");
+if (!isset($_SESSION['user_id'])) {
+    header("Location: pagina_principal.php");
     exit;
 }
 
-// Recuperar datos del usuario
-$nombre_usuario = $_SESSION["user_name"];
-$rol = $_SESSION["user_rol"]; // 1 = admin, 2 = mesero (por ejemplo)
 ?>
 
+
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Principal - Restaurante</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Inicio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
 </head>
 
-<body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">🍽️ Restaurante UPLA</a>
-            <div class="d-flex">
-                <span class="navbar-text text-white me-3">
-                    Bienvenido, <?php echo htmlspecialchars($nombre_usuario); ?>
-                </span>
-                <a href="logout.php" class="btn btn-outline-light btn-sm">Cerrar sesión</a>
+            <a class="navbar-brand" href="/">Inicio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="futurama.php">Futurama</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="los_simpson.php">Los Simsons</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="rick_&_mroty.php">Rick and Morty</a>
+                    </li>
+                </ul>
+                <a href="logout.php">
+                    <button type="submit" class="btn btn-primary">Cerrar sesion</button>
+                </a>
             </div>
         </div>
     </nav>
 
-    <div class="container mt-4">
-        <h2 class="text-center mb-4">Panel Principal</h2>
 
-        <!-- Opciones del menú -->
-        <div class="row">
-            <?php if ($rol == 1): // ADMIN ?>
-                <div class="col-md-3 mb-3">
-                    <div class="card h-100 text-center">
-                        <div class="card-body">
-                            <h5 class="card-title">Usuarios</h5>
-                            <p class="card-text">Gestionar usuarios y roles del sistema.</p>
-                            <a href="usuarios.php" class="btn btn-primary">Ir</a>
-                        </div>
-                    </div>
-                </div>
-            <?php endif; ?>
 
-            <div class="col-md-3 mb-3">
-                <div class="card h-100 text-center">
-                    <div class="card-body">
-                        <h5 class="card-title">Platos de Fondo</h5>
-                        <p class="card-text">Agregar o editar platos disponibles.</p>
-                        <a href="platos.php" class="btn btn-primary">Ir</a>
-                    </div>
-                </div>
-            </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-            <div class="col-md-3 mb-3">
-                <div class="card h-100 text-center">
-                    <div class="card-body">
-                        <h5 class="card-title">Bebidas y Licores</h5>
-                        <p class="card-text">Gestionar las bebidas del menú.</p>
-                        <a href="bebidas.php" class="btn btn-primary">Ir</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 mb-3">
-                <div class="card h-100 text-center">
-                    <div class="card-body">
-                        <h5 class="card-title">Pedidos</h5>
-                        <p class="card-text">Registrar pedidos de los clientes.</p>
-                        <a href="pedidos.php" class="btn btn-success">Ir</a>
-                    </div>
-                </div>
-            </div>
-
-            <?php if ($rol == 1): ?>
-            <div class="col-md-3 mb-3">
-                <div class="card h-100 text-center">
-                    <div class="card-body">
-                        <h5 class="card-title">Reportes</h5>
-                        <p class="card-text">Ver reportes de ventas y pedidos.</p>
-                        <a href="reporte_pedidos.php" class="btn btn-secondary">Ir</a>
-                    </div>
-                </div>
-            </div>
-            <?php endif; ?>
-        </div>
-    </div>
-
-    <footer class="text-center mt-5 text-muted">
-        <hr>
-        <p>Sistema de Restaurante - Universidad de Playa Ancha © 2025</p>
-    </footer>
 </body>
-</html>
+
+</html> 
