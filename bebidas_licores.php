@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 <body>
     <div class="container text-center">
         <div class="card text-center p-3 mx-auto my-5 shadow" style="max-width: 400px;">
-            <h2 class="mb-4">Nueva Bebida o Licor</h2>
+            <h2 class="mb-4">Nueva Bebida o Licor   </h2>
 
             <?php
             if (isset($error)) {

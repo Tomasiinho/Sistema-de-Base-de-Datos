@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $id_rol =$_POST['id_rol'];
 
     if ($password) {
         $contraseña_encriptada = password_hash($password, PASSWORD_BCRYPT);
@@ -28,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     }
 
     // Insertar datos
-    $query = $conexion->prepare("SELECT id_usuarios as id, nombre, password from usuarios where email = ?");
+    $query = $conexion->prepare("SELECT id_usuarios as id, nombre, password, id_rol from usuarios where email = ?");
     if (!$query) {
         die("Error al preparar la consulta: " . $conexion->error);
     }
@@ -50,15 +51,15 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
             // Redirección según el rol del usuario
             if ($usuario["id_rol"] == 1) {
-                header("Location: admin/dashboard.php");
+                header("Location: dashboard.php");
                 exit();
             }
             elseif ($usuario["id_rol"] == 2) {
-                header("Location: mesero/inicio.php");
+                header("Location: inicio.php");
                 exit();
             }
             elseif ($usuario["id_rol"] == 3) {
-                header("Location: usuario/home.php");
+                header("Location: home.php");
                 exit();
             }
             else {
