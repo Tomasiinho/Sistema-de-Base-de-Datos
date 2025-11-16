@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     }
 
     // Insertar datos
-    $query = $conexion->prepare("SELECT id, nombre_usuario, password from usuarios where email = ?");
+    $query = $conexion->prepare("SELECT id_usuarios as id, nombre, password from usuarios where email = ?");
     if (!$query) {
         die("Error al preparar la consulta: " . $conexion->error);
     }
@@ -44,8 +44,26 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         if (password_verify($password, $usuario["password"])) {
             session_start();
             $_SESSION["user_id"] = $usuario["id"];
-            $_SESSION["user_name"] = $usuario["nombre_usuario"];
+            $_SESSION["user_name"] = $usuario["nombre"];
+            $_SESSION["user_role"] = $usuario["id_rol"];
             $exito = "Sesion Iniciada con exito!";
+
+            // Redirección según el rol del usuario
+            if ($usuario["id_rol"] == 1) {
+                header("Location: admin/dashboard.php");
+                exit();
+            }
+            elseif ($usuario["id_rol"] == 2) {
+                header("Location: mesero/inicio.php");
+                exit();
+            }
+            elseif ($usuario["id_rol"] == 3) {
+                header("Location: usuario/home.php");
+                exit();
+            }
+            else {
+                $error = "Rol no válido.";
+            }
         } else {
             $error = "Error al iniciar sesión, usuario o contraseña incorrecta";
         }

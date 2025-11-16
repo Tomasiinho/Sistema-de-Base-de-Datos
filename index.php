@@ -3,7 +3,7 @@
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: pagina_principal.php");
     exit;
 }
 
@@ -22,31 +22,51 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">Inicio</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="futurama.php">Futurama</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="los_simpson.php">Los Simsons</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="rick_&_mroty.php">Rick and Morty</a>
-                    </li>
-                </ul>
-                <a href="logout.php">
-                    <button type="submit" class="btn btn-primary">Cerrar sesion</button>
-                </a>
-            </div>
-        </div>
-    </nav>
+    <div class="container text-center">
+        <div class="card text-center p-3 mx-auto my-5 shadow" style="max-width: 1000px;">
+            <h2 class="mb-4">Opciones del Administrador</h2>
+            <hr>
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Cuantas listas son las que quieres ver en un mismo insatnte?</label>
+                    <br>
+                    <a href="carta.php">
+                        <button type="submit" class="btn btn-primary" style="text-aling: center; text-decoration: none;">Carta</button>
+                    </a>
+                </div>
+                <hr>
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Selecciona este boton para dirigirte a la carta</label>
+                    <br>
+                    <a href="carta.php">
+                        <button type="submit" class="btn btn-primary" style="text-aling: center; text-decoration: none;">Carta</button>
+                    </a>
+                </div>
+                <hr>
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Selecciona este boton para dirigirte a los meseros disponibles</label>
+                    <br>
+                    <a href="meseros.php">
+                        <button type="submit" class="btn btn-primary" style="text-aling: center; text-decoration: none;">Meseros</button>
+                    </a>
+                </div>
+                <hr>
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Selecciona este boton para dirigirte a los mesas disponibles</label>
+                    <br>
+                    <a href="mesas.php">
+                        <button type="submit" class="btn btn-primary" style="text-aling: center; text-decoration: none;">Mesas</button>
+                    </a>
+                </div>
+                
 
+            <hr>
+
+        <div>
+            <a href="logout.php">
+                <button type="submit" class="btn btn-primary" style="text-aling: center; text-decoration: none;">Cerrar sesion</button>
+            </a>
+        </div>
+    </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

@@ -20,19 +20,31 @@
 </head>
 <body>
     <div class="container text-center">
-        <h1>Proyecto de progrmacion web</h1>
-        <div>
-            <h4>El proyecto final consiste en unapagina web en la que uno se pueda registrarse, iniciar sesion o cerrar la sesion. Al iniciar sesion se te dirigira a una pagina en la cual puedas acceder a unas APIs en este caso de 3 series animadas como lo son Los simpson, Futurama y Rick Y Morty</h4>
+        <h1>Restaurante de Comida Italiana</h1>
+        
+        <div id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+            <img src="..." class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+            <img src="..." class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+            <img src="..." class="d-block w-100" alt="...">
+            </div>
         </div>
-        <div>
-            <h1>Integrantes:</h1>
-            <ul class="list-group">
-                <li class="list-group-item">Tomas Carrasco</li>
-                    <img src="Tomas.jpg" class="tomas" alt="Tomas">
-                <li class="list-group-item">Felipe Guasch</li>
-                    <img src="Felipe.jpg" class="felipe" alt="Felipe">
-            </ul>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
         </div>
+        
+
         <div>
             <p>¿Tienes Cuenta?</p>
                 <a href="login.php" style="color:black; text-aling: center; text-decoration: none;"><b>Inicia Sesión</b></a>

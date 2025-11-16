@@ -21,16 +21,16 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     }
 
     // Verificar si el correo ya existe
-    $query_verificar = $conexion->prepare("SELECT nombre FROM bebidas_licores WHERE nombre = ?");
+    $query_verificar = $conexion->prepare("SELECT nombre FROM platos_de_fondo WHERE nombre = ?");
     $query_verificar->bind_param("s", $nombre);
     $query_verificar->execute();
     $query_verificar->store_result();
 
     if ($query_verificar->num_rows > 0) {
-        $error = "Esta bebida o licor ya esta en la carta.";
+        $error = "Este plato ya existe en la carta.";
     } else {
         // Insertar nuevo usuario
-        $query = $conexion->prepare("INSERT INTO bebidas_licores (nombre, descripcion, precio_unitario) VALUES (?, ?, ?)");
+        $query = $conexion->prepare("INSERT INTO platos_de_fondo (nombre, descripcion, precio_unitario) VALUES (?, ?, ?)");
         if (!$query) {
             die("Error al preparar la consulta: " . $conexion->error);
         }
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Ingreso de Bebida o Licor</title>
+    <title>Ingreso de Plato de Fondo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .texto { color: blue; }
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 <body>
     <div class="container text-center">
         <div class="card text-center p-3 mx-auto my-5 shadow" style="max-width: 400px;">
-            <h2 class="mb-4">Nueva Bebida o Licor</h2>
+            <h2 class="mb-4">Nuevo Plato de Fondo</h2>
 
             <?php
             if (isset($error)) {
@@ -75,18 +75,18 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
             <form action="registro.php" method="post">
                 <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre de la Bebida o Licor</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre de la bebida o licor" required>
+                    <label for="nombre" class="form-label">Nombre del Plato de Fondo</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre del plato de fondo" required>
                 </div>
 
                 <div class="mb-3">
-                    <label for="descripcion" class="form-label">Ingrese una Descripcion de la Bebida o Licor</label>
-                    <input type="descripcion" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese una descripcion de la Bebida o Licor" required>
+                    <label for="descripcion" class="form-label">Ingrese una Descripcion del Plato de Fondo</label>
+                    <input type="descripcion" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese una descripcion del plato de fondo" required>
                 </div>
 
                 <div class="mb-3">
-                    <label for="precio_unitario" class="form-label">Precio Unitario de la Bebida o Licor</label>
-                    <input type="precio_unitario" class="form-control" id="precio_unitario" name="precio_unitario" placeholder="Ingrese el Precio de la Bebida o Licor" required>
+                    <label for="precio_unitario" class="form-label">Precio Unitario del Plato de Fondo</label>
+                    <input type="precio_unitario" class="form-control" id="precio_unitario" name="precio_unitario" placeholder="Ingrese el Precio del Plato" required>
                 </div>
             </form>
         </div>
