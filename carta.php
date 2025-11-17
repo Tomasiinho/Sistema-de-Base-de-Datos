@@ -7,6 +7,30 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="dashboard.php">Inicio</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="perfil_usuario.php">Perfil del Usuario</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="los_simpson.php">Los Simsons</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="rick_&_mroty.php">Rick and Morty</a>
+                            </li>
+                        </ul>
+                        <a href="logout.php">
+                            <button type="submit" class="btn btn-primary">Cerrar sesion</button>
+                        </a>
+                    </div>
+                </div>
+    </nav>
     <div class="container text-center">
         <div class="card text-center p-3 mx-auto my-5 shadow" style="max-width: 1000px;">
             <h2 class="mb-4">Opciones de la Carta</h2>
@@ -30,10 +54,6 @@
                 <br>
                 <button type="button" class="btn btn-primary me-4" onclick="window.location.href='bebidas_licores.php'">Lista de Bebidas y Licores</button>
                 <button type="button" class="btn btn-primary" onclick="window.location.href='agregar_producto.php'">Agregar Bebida y Licor</button>
-            </div>
-            <hr>
-            <div>
-                <button type="button" class="btn btn-primary" onclick="window.location.href='logout.php'">Cerrar sesion</button>
             </div>
         </div>
     </div>

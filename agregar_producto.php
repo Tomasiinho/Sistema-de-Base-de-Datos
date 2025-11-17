@@ -13,42 +13,60 @@ if ($conexion->connect_error) {
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    $categoria = $_POST["categoria"];
-    $nombre = $_POST["nombre"];
-    $precio = $_POST["precio"];
+    $categoria   = $_POST["categoria"] ?? '';
+    $nombre      = trim($_POST["nombre"] ?? '');
+    $descripcion = trim($_POST["descripcion"] ?? '');
+    $precio      = $_POST["precio"] ?? '';
 
-    if (empty($categoria) || empty($nombre) || empty($precio)) {
-        $error = "Todos los campos son obligatorios.";
+    if (empty($categoria) || empty($nombre) || $precio === '' ) {
+        $error = "Los campos categoría, nombre y precio son obligatorios.";
     } else {
-        // Elegir la tabla según categoría
-        switch ($categoria) {
-            case "platos":
-                $tabla = "platos_fondo";
-                break;
-
-            case "ensaladas":
-                $tabla = "ensaladas";
-                break;
-
-            case "bebidas":
-                $tabla = "bebidas_licores";
-                break;
-
-            default:
-                die("Categoría inválida.");
-        }
-
-        // Insertar datos
-        $stmt = $conexion->prepare("INSERT INTO $tabla (nombre, precio) VALUES (?, ?)");
-        $stmt->bind_param("sd", $nombre, $precio);
-
-        if ($stmt->execute()) {
-            $exito = "Producto agregado correctamente.";
+        // Validar precio como número
+        if (!is_numeric($precio)) {
+            $error = "El precio debe ser un número válido.";
         } else {
-            $error = "Error al guardar: " . $stmt->error;
-        }
+            $precio = (float) $precio;
 
-        $stmt->close();
+            // Elegir la tabla según categoría
+            switch ($categoria) {
+                case "platos":
+                    $tabla = "platos_de_fondo";
+                    break;
+
+                case "ensaladas":
+                    $tabla = "ensaladas";
+                    break;
+
+                case "bebidas":
+                    $tabla = "bebidas_licores";
+                    break;
+
+                default:
+                    $tabla = '';
+            }
+
+            if ($tabla === '') {
+                $error = "Categoría inválida.";
+            } else {
+                // Preparar INSERT. Asumo que cada tabla tiene columnas: nombre, descripcion, precio
+                $sql = "INSERT INTO $tabla (nombre, descripcion, precio_unitario) VALUES (?, ?, ?)";
+                $stmt = $conexion->prepare($sql);
+
+                if (!$stmt) {
+                    $error = "Error al preparar la consulta: " . $conexion->error;
+                } else {
+                    $stmt->bind_param("ssd", $nombre, $descripcion, $precio);
+
+                    if ($stmt->execute()) {
+                        $exito = "Producto agregado correctamente.";
+                        $nombre = $descripcion = $precio = '';
+                    } else {
+                        $error = "Error al guardar: " . $stmt->error;
+                    }
+                    $stmt->close();
+                }
+            }
+        }
     }
 }
 ?>
@@ -61,39 +79,43 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body>
-<div class="container mt-5" style="max-width: 600px;">
+<div class="container mt-5" style="max-width: 700px;">
     <div class="card p-4 shadow">
         <h3 class="text-center">Agregar Producto</h3>
         <hr>
 
-        <?php if (isset($error)) { ?>
-            <div class="alert alert-danger"><?= $error ?></div>
-        <?php } ?>
+        <?php if (isset($error)) : ?>
+            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
 
-        <?php if (isset($exito)) { ?>
-            <div class="alert alert-success"><?= $exito ?></div>
-        <?php } ?>
+        <?php if (isset($exito)) : ?>
+            <div class="alert alert-success"><?= htmlspecialchars($exito) ?></div>
+        <?php endif; ?>
 
         <form method="POST">
-
             <div class="mb-3">
                 <label class="form-label">Categoría</label>
                 <select name="categoria" class="form-select" required>
                     <option value="">Seleccione...</option>
-                    <option value="platos">Plato de Fondo</option>
-                    <option value="ensaladas">Ensalada</option>
-                    <option value="bebidas">Bebida o Licor</option>
+                    <option value="platos" <?= (isset($categoria) && $categoria=='platos') ? 'selected' : '' ?>>Plato de Fondo</option>
+                    <option value="ensaladas" <?= (isset($categoria) && $categoria=='ensaladas') ? 'selected' : '' ?>>Ensalada</option>
+                    <option value="bebidas" <?= (isset($categoria) && $categoria=='bebidas') ? 'selected' : '' ?>>Bebida o Licor</option>
                 </select>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Nombre del producto</label>
-                <input type="text" name="nombre" class="form-control" required>
+                <input type="text" name="nombre" class="form-control" value="<?= isset($nombre) ? htmlspecialchars($nombre) : '' ?>" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Descripción</label>
+                <textarea name="descripcion" class="form-control" rows="3"><?= isset($descripcion) ? htmlspecialchars($descripcion) : '' ?></textarea>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Precio</label>
-                <input type="number" step="0.01" name="precio" class="form-control" required>
+                <input type="number" step="0.01" name="precio" class="form-control" value="<?= isset($precio) ? htmlspecialchars($precio) : '' ?>" required>
             </div>
 
             <button type="submit" class="btn btn-primary w-100">Guardar Producto</button>
