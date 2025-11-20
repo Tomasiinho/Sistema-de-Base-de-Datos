@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-11-2025 a las 21:23:25
+-- Tiempo de generación: 19-11-2025 a las 22:57:19
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `bebidas_licores` (
   `id_bebidas` int(10) NOT NULL,
-  `Nombre` varchar(100) NOT NULL,
+  `nombre_bebidas` varchar(100) NOT NULL,
   `descripcion` varchar(100) NOT NULL,
   `precio_unitario` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -38,7 +38,7 @@ CREATE TABLE `bebidas_licores` (
 -- Volcado de datos para la tabla `bebidas_licores`
 --
 
-INSERT INTO `bebidas_licores` (`id_bebidas`, `Nombre`, `descripcion`, `precio_unitario`) VALUES
+INSERT INTO `bebidas_licores` (`id_bebidas`, `nombre_bebidas`, `descripcion`, `precio_unitario`) VALUES
 (1, 'Limonchelo', 'Bajativo de limón', 1990);
 
 -- --------------------------------------------------------
@@ -60,8 +60,8 @@ CREATE TABLE `categorias_productos` (
 
 CREATE TABLE `clientes` (
   `id_cliente` int(10) NOT NULL,
-  `Nombre` varchar(100) NOT NULL,
-  `Rut` varchar(11) NOT NULL
+  `nombre_cliente` varchar(100) NOT NULL,
+  `rut` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -86,7 +86,7 @@ CREATE TABLE `detalle_pedidos` (
 
 CREATE TABLE `ensaladas` (
   `id_ensalada` int(10) NOT NULL,
-  `Nombre` varchar(100) NOT NULL,
+  `nombre_ensaladas` varchar(100) NOT NULL,
   `descripcion` varchar(100) NOT NULL,
   `precio_unitario` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -112,7 +112,7 @@ CREATE TABLE `mesas` (
 
 CREATE TABLE `meseros` (
   `id_mesero` int(10) NOT NULL,
-  `Nombre` int(100) NOT NULL,
+  `nombre_trabajador` int(100) NOT NULL,
   `rut` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -139,7 +139,7 @@ CREATE TABLE `pedidos` (
 
 CREATE TABLE `permisos` (
   `id_permiso` int(10) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
+  `nombre_permiso` varchar(50) NOT NULL,
   `descripción` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -151,7 +151,7 @@ CREATE TABLE `permisos` (
 
 CREATE TABLE `platos_de_fondo` (
   `id_plato_fondo` int(10) NOT NULL,
-  `Nombre` varchar(100) NOT NULL,
+  `nombre_plato` varchar(100) NOT NULL,
   `descripcion` varchar(100) NOT NULL,
   `precio_unitario` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -160,7 +160,7 @@ CREATE TABLE `platos_de_fondo` (
 -- Volcado de datos para la tabla `platos_de_fondo`
 --
 
-INSERT INTO `platos_de_fondo` (`id_plato_fondo`, `Nombre`, `descripcion`, `precio_unitario`) VALUES
+INSERT INTO `platos_de_fondo` (`id_plato_fondo`, `nombre_plato`, `descripcion`, `precio_unitario`) VALUES
 (1, 'Spaghetti al pesto', 'Spaghetti con salsa de pesto', 15500);
 
 -- --------------------------------------------------------
@@ -171,7 +171,7 @@ INSERT INTO `platos_de_fondo` (`id_plato_fondo`, `Nombre`, `descripcion`, `preci
 
 CREATE TABLE `productos` (
   `id_producto` int(11) NOT NULL,
-  `nombre` int(100) NOT NULL,
+  `nombre_producto` int(100) NOT NULL,
   `precio` int(10) NOT NULL,
   `id_categoria` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -184,7 +184,7 @@ CREATE TABLE `productos` (
 
 CREATE TABLE `roles` (
   `id_rol` int(10) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
+  `nombre_rol` varchar(50) NOT NULL,
   `descripción` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -207,7 +207,7 @@ CREATE TABLE `roles_permisos` (
 
 CREATE TABLE `usuarios` (
   `id_usuarios` int(10) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
+  `nombre_usuario` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `activo` tinyint(1) NOT NULL,
@@ -218,7 +218,7 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuarios`, `nombre`, `password`, `email`, `activo`, `id_rol`) VALUES
+INSERT INTO `usuarios` (`id_usuarios`, `nombre_usuario`, `password`, `email`, `activo`, `id_rol`) VALUES
 (4, 'Luis Tomás Benjamín Carrasco Godoy', '$2y$10$ySgXur3dn6foRuhHtw.fwOAEPrtU7soIfD0o2HADt7Dejdd.vSMHW', 'tomascarrascogodoy@gmail.com', 0, 1);
 
 --

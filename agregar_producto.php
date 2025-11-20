@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Protección (opcional)
+// Protección
 if (!isset($_SESSION["user_id"])) {
     die("Debe iniciar sesión para acceder.");
 }
@@ -21,24 +21,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (empty($categoria) || empty($nombre) || $precio === '' ) {
         $error = "Los campos categoría, nombre y precio son obligatorios.";
     } else {
-        // Validar precio como número
         if (!is_numeric($precio)) {
             $error = "El precio debe ser un número válido.";
         } else {
             $precio = (float) $precio;
 
-            // Elegir la tabla según categoría
+            // Elegir tabla y columnas según categoría (coincidiendo con tu .sql)
             switch ($categoria) {
                 case "platos":
                     $tabla = "platos_de_fondo";
+                    $col_nombre = "nombre_plato";
                     break;
 
                 case "ensaladas":
                     $tabla = "ensaladas";
+                    $col_nombre = "nombre_ensaladas";
                     break;
 
                 case "bebidas":
                     $tabla = "bebidas_licores";
+                    $col_nombre = "nombre_bebidas";
                     break;
 
                 default:
@@ -48,13 +50,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if ($tabla === '') {
                 $error = "Categoría inválida.";
             } else {
-                // Preparar INSERT. Asumo que cada tabla tiene columnas: nombre, descripcion, precio
-                $sql = "INSERT INTO $tabla (nombre, descripcion, precio_unitario) VALUES (?, ?, ?)";
+                // Preparar INSERT usando los nombres reales de columnas
+                // INSERT INTO <tabla> (<col_nombre>, descripcion, precio_unitario) VALUES (?, ?, ?)
+                $sql = "INSERT INTO `$tabla` (`$col_nombre`, `descripcion`, `precio_unitario`) VALUES (?, ?, ?)";
                 $stmt = $conexion->prepare($sql);
 
                 if (!$stmt) {
                     $error = "Error al preparar la consulta: " . $conexion->error;
                 } else {
+                    // bind: s = string (nombre), s = string (descripcion), d = double (precio)
                     $stmt->bind_param("ssd", $nombre, $descripcion, $precio);
 
                     if ($stmt->execute()) {

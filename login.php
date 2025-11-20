@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     }
 
     // Insertar datos
-    $query = $conexion->prepare("SELECT id_usuarios as id, nombre, password, id_rol from usuarios where email = ?");
+    $query = $conexion->prepare("SELECT id_usuarios as id, nombre_usuario, password, id_rol from usuarios where email = ?");
     if (!$query) {
         die("Error al preparar la consulta: " . $conexion->error);
     }
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         if (password_verify($password, $usuario["password"])) {
             session_start();
             $_SESSION["user_id"] = $usuario["id"];
-            $_SESSION["user_name"] = $usuario["nombre"];
+            $_SESSION["user_name"] = $usuario["nombre_usuario"];
             $_SESSION["user_role"] = $usuario["id_rol"];
             $exito = "Sesion Iniciada con exito!";
 

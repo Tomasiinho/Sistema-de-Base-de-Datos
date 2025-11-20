@@ -38,21 +38,21 @@
             <div class="mb-3">
                 <label for="nombre" class="form-label">Seccion de Platos de Fondo</label>
                 <br>
-                <button type="button" class="btn btn-primary me-4" onclick="window.location.href='platos_fondo.php'">Lista de Platos de Fondo</button>
+                <button type="button" class="btn btn-primary me-4" onclick="window.location.href='lista_producto.php'">Lista de Platos de Fondo</button>
                 <button type="button" class="btn btn-primary" onclick="window.location.href='agregar_producto.php'">Agregar Plato de Fondo</button>
             </div>
             <hr>
             <div class="mb-3">
                 <label for="nombre" class="form-label">Seccion de Ensaladas</label>
                 <br>
-                <button type="button" class="btn btn-primary me-4" onclick="window.location.href='ensaladas.php'">Lista de Ensaladas</button>
+                <button type="button" class="btn btn-primary me-4" onclick="window.location.href='lista_producto.php'">Lista de Ensaladas</button>
                 <button type="button" class="btn btn-primary" onclick="window.location.href='agregar_producto.php'">Agregar Ensalada</button>
             </div>
             <hr>
             <div class="mb-3">
                 <label for="nombre" class="form-label">Seccion de Bebidas y Licores</label>
                 <br>
-                <button type="button" class="btn btn-primary me-4" onclick="window.location.href='bebidas_licores.php'">Lista de Bebidas y Licores</button>
+                <button type="button" class="btn btn-primary me-4" onclick="window.location.href='lista_producto.php'">Lista de Bebidas y Licores</button>
                 <button type="button" class="btn btn-primary" onclick="window.location.href='agregar_producto.php'">Agregar Bebida y Licor</button>
             </div>
         </div>
