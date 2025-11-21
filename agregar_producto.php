@@ -1,4 +1,6 @@
 <?php
+require_once "auth.php";
+require_role([1]);
 session_start();
 
 // Protección

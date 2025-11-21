@@ -1,8 +1,10 @@
 <?php
+require_once "auth.php";
+require_role([1]);
 session_start();
 
 if (!isset($_SESSION["user_id"])) {
-    die("Debe iniciar sesión.");
+    die("Debe iniciar sesión para acceder.");
 }
 
 $conexion = new mysqli("localhost", "root", "", "restaurante");
@@ -10,9 +12,10 @@ if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);
 }
 
-// Determinar qué lista mostrar
-$seccion = $_GET['ver'] ?? '';
-
+// Consultas
+$bebidas = $conexion->query("SELECT * FROM bebidas_licores");
+$ensaladas = $conexion->query("SELECT * FROM ensaladas");
+$platos = $conexion->query("SELECT * FROM platos_de_fondo");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -23,85 +26,162 @@ $seccion = $_GET['ver'] ?? '';
 </head>
 
 <body>
-<div class="container mt-4">
+<div class="container mt-5" style="max-width: 1000px;">
+    <div class="card p-4 shadow">
 
-    <h2 class="text-center mb-4">Listas Disponibles</h2>
+        <h2 class="text-center mb-4">Listas de Productos</h2>
 
-    <!-- BOTONES -->
-    <div class="text-center mb-4">
-        <a href="lista_productos.php?ver=platos" class="btn btn-primary me-2">Platos de Fondo</a>
-        <a href="lista_productos.php?ver=ensaladas" class="btn btn-success me-2">Ensaladas</a>
-        <a href="lista_productos.php?ver=bebidas" class="btn btn-info">Bebidas y Licores</a>
+        <!-- Botones -->
+        <div class="d-flex justify-content-center mb-4 gap-3">
+            <button class="btn btn-primary" onclick="mostrar('bebidas')">Bebidas y Licores</button>
+            <button class="btn btn-success" onclick="mostrar('ensaladas')">Ensaladas</button>
+            <button class="btn btn-warning" onclick="mostrar('platos')">Platos de Fondo</button>
+        </div>
+
+        <hr>
+
+        <!-- ===========================
+             LISTA DE BEBIDAS Y LICORES
+        ============================ -->
+        <div id="bebidas" class="seccion" style="display:none;">
+            <h4>Bebidas y Licores</h4>
+
+            <table class="table table-bordered table-hover mt-3">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                <?php while ($b = $bebidas->fetch_assoc()) : ?>
+                    <tr>
+                        <td><?= $b["id_bebidas"] ?></td>
+                        <td><?= $b["nombre_bebidas"] ?></td>
+                        <td><?= $b["descripcion"] ?></td>
+                        <td>$<?= number_format($b["precio_unitario"], 0, ",", ".") ?></td>
+
+                        <!-- Botón Eliminar -->
+                        <td>
+                            <a class="btn btn-danger btn-sm"
+                               href="eliminar_producto.php?id=<?= $b['id_bebidas'] ?>&tipo=bebida"
+                               onclick="return confirm('¿Eliminar esta bebida?');">
+                                Eliminar
+                            </a>
+                            <a class="btn btn-danger btn-sm"
+                               href="modificar_producto.php?id=<?= $b['id_bebidas'] ?>&tipo=bebida"
+                               onclick="return confirm('¿Modificar esta bebida?');">
+                                Modificar
+                            </a>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ===========================
+                 LISTA DE ENSALADAS
+        ============================ -->
+        <div id="ensaladas" class="seccion" style="display:none;">
+            <h4>Ensaladas</h4>
+
+            <table class="table table-bordered table-hover mt-3">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                <?php while ($e = $ensaladas->fetch_assoc()) : ?>
+                    <tr>
+                        <td><?= $e["id_ensalada"] ?></td>
+                        <td><?= $e["nombre_ensaladas"] ?></td>
+                        <td><?= $e["descripcion"] ?></td>
+                        <td>$<?= number_format($e["precio_unitario"], 0, ",", ".") ?></td>
+
+                        <!-- Botón Eliminar -->
+                        <td>
+                            <a class="btn btn-danger btn-sm"
+                               href="eliminar_producto.php?id=<?= $e['id_ensalada'] ?>&tipo=ensalada"
+                               onclick="return confirm('¿Eliminar esta ensalada?');">
+                                Eliminar
+                            </a>
+                            <a class="btn btn-danger btn-sm"
+                               href="modificar_producto.php?id=<?= $e['id_ensalada'] ?>&tipo=ensalada"
+                               onclick="return confirm('¿Modificar esta ensalada?');">
+                                Modificar
+                            </a>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ===========================
+                LISTA DE PLATOS DE FONDO
+        ============================ -->
+        <div id="platos" class="seccion" style="display:none;">
+            <h4>Platos de Fondo</h4>
+
+            <table class="table table-bordered table-hover mt-3">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                <?php while ($p = $platos->fetch_assoc()) : ?>
+                    <tr>
+                        <td><?= $p["id_plato_fondo"] ?></td>
+                        <td><?= $p["nombre_plato"] ?></td>
+                        <td><?= $p["descripcion"] ?></td>
+                        <td>$<?= number_format($p["precio_unitario"], 0, ",", ".") ?></td>
+
+                        <!-- Botón Eliminar -->
+                        <td>
+                            <a class="btn btn-danger btn-sm"
+                               href="eliminar_producto.php?id=<?= $p['id_plato_fondo'] ?>&tipo=plato"
+                               onclick="return confirm('¿Eliminar este plato?');">
+                                Eliminar
+                            </a>
+                            <a class="btn btn-danger btn-sm"
+                               href="modificar_producto.php?id=<?= $p['id_plato_fondo'] ?>&tipo=plato"
+                               onclick="return confirm('¿Modificar este plato?');">
+                                Modificar
+                            </a>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+
     </div>
-
-    <hr>
-
-    <?php if ($seccion === "platos"): ?>
-
-        <!-- CARD PLATOS -->
-        <div class="card shadow p-3">
-            <h3 class="card-title text-center mb-3">Lista de Platos de Fondo</h3>
-
-            <?php
-            $sql = $conexion->query("SELECT * FROM platos_de_fondo");
-
-            while ($fila = $sql->fetch_assoc()) {
-                echo "<div class='card mb-3 p-3'>";
-                echo "<h5><b>Nombre:</b> " . $fila['nombre_plato'] . "</h5>";
-                echo "<h5><b>Descripción:</b> " . $fila['descripcion'] . "</h5>";
-                echo "<h5><b>Precio:</b> $" . $fila['precio_unitario'] . "</h5>";
-                echo "</div>";
-            }
-            ?>
-        </div>
-
-    <?php elseif ($seccion === "ensaladas"): ?>
-
-        <!-- CARD ENSALADAS -->
-        <div class="card shadow p-3">
-            <h3 class="card-title text-center mb-3">Lista de Ensaladas</h3>
-
-            <?php
-            $sql = $conexion->query("SELECT * FROM ensaladas");
-
-            while ($fila = $sql->fetch_assoc()) {
-                echo "<div class='card mb-3 p-3'>";
-                echo "<h5><b>Nombre:</b> " . $fila['nombre_ensaladas'] . "</h5>";
-                echo "<h5><b>Descripción:</b> " . $fila['descripcion'] . "</h5>";
-                echo "<h5><b>Precio:</b> $" . $fila['precio_unitario'] . "</h5>";
-                echo "</div>";
-            }
-            ?>
-        </div>
-
-    <?php elseif ($seccion === "bebidas"): ?>
-
-        <!-- CARD BEBIDAS -->
-        <div class="card shadow p-3">
-            <h3 class="card-title text-center mb-3">Lista de Bebidas y Licores</h3>
-
-            <?php
-            $sql = $conexion->query("SELECT * FROM bebidas_licores");
-
-            while ($fila = $sql->fetch_assoc()) {
-                echo "<div class='card mb-3 p-3'>";
-                echo "<h5><b>Nombre:</b> " . $fila['nombre_bebidas'] . "</h5>";
-                echo "<h5><b>Descripción:</b> " . $fila['descripcion'] . "</h5>";
-                echo "<h5><b>Precio:</b> $" . $fila['precio_unitario'] . "</h5>";
-                echo "</div>";
-            }
-            ?>
-        </div>
-
-    <?php else: ?>
-
-        <!-- MENSAJE INICIAL -->
-        <div class="alert alert-info text-center">
-            Selecciona una lista para mostrarla.
-        </div>
-
-    <?php endif; ?>
-
 </div>
+
+<script>
+// Mostrar y ocultar listas
+function mostrar(seccion) {
+    document.querySelectorAll(".seccion").forEach(div => div.style.display = "none");
+    document.getElementById(seccion).style.display = "block";
+}
+</script>
+
 </body>
 </html>

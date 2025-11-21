@@ -1,15 +1,6 @@
 <?php
-
-session_start();
-if(!isset($_SESSION["user_id"])) {
-    die("Debe iniciar sesión para acceder.");
-}
-
-
-if($_SESSION["user_role"] !=1) {
-    die("Acceso denegado. No tiene permisos para entrar aquí.");
-}
-
+require_once "auth.php";
+require_role([1]);
 ?>
 
 <!DOCTYPE html>
@@ -34,12 +25,6 @@ if($_SESSION["user_role"] !=1) {
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="perfil_usuario.php">Perfil del Usuario</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="los_simpson.php">Los Simsons</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="rick_&_mroty.php">Rick and Morty</a>
                             </li>
                         </ul>
                         <a href="logout.php">

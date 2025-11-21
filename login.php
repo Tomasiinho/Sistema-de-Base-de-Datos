@@ -54,16 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 header("Location: dashboard.php");
                 exit();
             }
-            elseif ($usuario["id_rol"] == 2) {
-                header("Location: inicio.php");
+            else{
+                header("Location: portal_trabajador.php");
                 exit();
-            }
-            elseif ($usuario["id_rol"] == 3) {
-                header("Location: home.php");
-                exit();
-            }
-            else {
-                $error = "Rol no válido.";
             }
         } else {
             $error = "Error al iniciar sesión, usuario o contraseña incorrecta";

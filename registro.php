@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                     <option value="">Seleccione un rol...</option>
                     <option value="1">Administrador</option>
                     <option value="2">Mesero</option>
-                    <option value="3">Usuario</option>
+                    <option value="3">Cajero</option>
                 </select>
             </div>
 

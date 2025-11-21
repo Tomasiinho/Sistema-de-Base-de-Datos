@@ -1,19 +1,21 @@
 <?php
 session_start();
 
-// Verificar que el usuario está logueado
+// Bloqueo si no está logueado
 if (!isset($_SESSION["user_id"])) {
     die("Debe iniciar sesión para acceder.");
 }
 
+// Conexión BD
 $conexion = new mysqli("localhost", "root", "", "restaurante");
 if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);
 }
 
+// Obtener ID del usuario en sesión
 $id_usuario = $_SESSION["user_id"];
 
-// Consulta para obtener información del usuario + nombre del rol
+// Consulta del usuario con JOIN al rol
 $sql = "SELECT u.nombre_usuario, u.email, r.nombre_rol 
         FROM usuarios u
         LEFT JOIN roles r ON u.id_rol = r.id_rol
@@ -21,7 +23,6 @@ $sql = "SELECT u.nombre_usuario, u.email, r.nombre_rol
         LIMIT 1";
 
 $stmt = $conexion->prepare($sql);
-
 if (!$stmt) {
     die("Error al preparar la consulta: " . $conexion->error);
 }
@@ -30,7 +31,8 @@ $stmt->bind_param("i", $id_usuario);
 $stmt->execute();
 $result = $stmt->get_result();
 
-if ($result->num_rows === 0) {
+// Validación
+if ($result->num_rows !== 1) {
     die("Usuario no encontrado.");
 }
 
@@ -39,7 +41,6 @@ $usuario = $result->fetch_assoc();
 $stmt->close();
 $conexion->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -49,34 +50,33 @@ $conexion->close();
 </head>
 
 <body>
-<div class="container mt-5" style="max-width: 600px;">
+<div class="container mt-5" style="max-width: 700px;">
     <div class="card p-4 shadow">
-        <h3 class="text-center">Perfil del Usuario</h3>
+        <h3 class="text-center">Mi Perfil</h3>
         <hr>
 
-        <p><strong>Nombre de Usuario:</strong> <?= htmlspecialchars($usuario["nombre_usuario"]) ?></p>
+        <p><strong>Nombre:</strong> <?= htmlspecialchars($usuario["nombre_usuario"]) ?></p>
         <p><strong>Email:</strong> <?= htmlspecialchars($usuario["email"]) ?></p>
         <p><strong>Rol:</strong> <?= htmlspecialchars($usuario["nombre_rol"]) ?></p>
 
         <hr>
 
-        <a href="dashboard.php" class="btn btn-primary w-100">Volver al Panel</a>
-        <a href="logout.php" class="btn btn-danger w-100 mt-2">Cerrar Sesión</a>
+        <!-- Botones de acción -->
+        <a href="modificar_usuario.php" class="btn btn-warning w-100 mb-2">Modificar Perfil</a>
+        <a href="eliminar_usuario.php" class="btn btn-danger w-100 mb-2"
+           onclick="return confirm('¿Seguro que deseas eliminar tu cuenta? ¡Esta acción es irreversible!');">
+            Eliminar Cuenta
+        </a>
+
+        <!-- BOTÓN VOLVER SEGÚN ROL -->
+        <?php if ($_SESSION["user_role"] == 1): ?>
+            <a href="dashboard.php" class="btn btn-secondary w-100 mt-2">Volver al Inicio</a>
+        <?php else: ?>
+            <a href="portal_trabajador.php" class="btn btn-secondary w-100 mt-2">Volver al Inicio</a>
+        <?php endif; ?>
+
+        <a href="logout.php" class="btn btn-outline-dark w-100 mt-3">Cerrar Sesión</a>
     </div>
-    <div class="mt-4 d-flex flex-column gap-2">
-
-    <!-- Botón Editar Perfil -->
-    <a href="editar_perfil.php" class="btn btn-warning w-100">
-        Editar Perfil
-    </a>
-
-    <!-- Botón Eliminar Perfil -->
-    <a href="eliminar_perfil.php" class="btn btn-danger w-100"
-       onclick="return confirm('¿Seguro que deseas eliminar tu cuenta? Esta acción es irreversible.');">
-        Eliminar Perfil
-    </a>
-
-</div>
 </div>
 </body>
 </html>
