@@ -15,6 +15,37 @@
 </head>
 
 <body class="bg-light">
+    <div class="container text-center mt-4">
+        <h1 class="mb-4">Sistema de Gestión – Restaurante de Comida Italiana</h1>
+
+    <!-- Imagen del MER -->
+    <h3>Modelo Entidad Relación</h3>
+    <img src="Restaurante_ITL Modelo de Datos.png" alt="Modelo ER del restaurante" class="mer-img">
+    <!-- REEMPLAZA la ruta de arriba con la ruta REAL del archivo -->
+
+    <!-- Texto de presentación -->
+    <div class="presentacion">
+        <p>
+            Este proyecto corresponde al desarrollo completo de un sistema de gestión para un 
+            <strong>Restaurante de Comida Italiana</strong>, construido utilizando PHP, MySQL y Bootstrap.
+            El sistema permite manejar usuarios, roles, productos, pedidos, mesas y reportes.
+        </p>
+
+        <p>
+            A partir del modelo de datos diseñado (mostrado arriba), se desarrolló el sistema paso a paso:
+            gestión de usuarios, roles, perfil personal, manejo de productos (platos, ensaladas y bebidas), 
+            creación y administración de pedidos, vistas separadas por tipo de trabajador 
+            (administrador, cajero y mesero), y finalmente herramientas internas como 
+            un <strong>cruce dinámico de tablas</strong> con filtros personalizados.
+        </p>
+
+        <p>
+            El sistema fue construido asegurando autenticación por roles, navegación segura y una interfaz 
+            amigable que permite tanto el uso administrativo como operativo dentro del restaurante.
+        </p>
+    </div>
+
+    <hr>
 
     <div class="container mt-5 text-center">
         
