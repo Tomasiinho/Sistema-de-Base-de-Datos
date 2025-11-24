@@ -16,13 +16,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="perfil_usuario.php">Perfil del Usuario</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="los_simpson.php">Los Simsons</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="rick_&_mroty.php">Rick and Morty</a>
+                                <a class="nav-link" aria-current="page" href="perfil_usuario.php">Mi Perfil</a>
                             </li>
                         </ul>
                         <a href="logout.php">

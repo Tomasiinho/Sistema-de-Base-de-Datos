@@ -26,6 +26,24 @@ $rol    = $_SESSION["user_role"];
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="portal_trabajador.php">Inicio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="perfil_usuario.php">Mi Perfil</a>
+                    </li>
+                </ul>
+                <a href="logout.php">
+                    <button type="submit" class="btn btn-primary">Cerrar sesion</button>
+                </a>
+            </div>
+        </div>
+    </nav>
 <div class="container mt-5">
     <div class="card shadow p-4" style="max-width: 600px; margin: auto;">
 
@@ -46,20 +64,14 @@ $rol    = $_SESSION["user_role"];
         <?php if ($rol == 2): ?>
             <h4 class="mb-3">Opciones del Mesero</h4>
             <a href="ver_mesas.php" class="btn btn-primary w-100 mt-2">Ver Mesas Disponibles</a>
-            <a href="crear_pedido.php" class="btn btn-primary w-100 mt-2">Crear Pedido</a>
             <a href="mis_pedidos.php" class="btn btn-primary w-100 mt-2">Mis Pedidos</a>
         <?php endif; ?>
 
         <?php if ($rol == 3): ?>
             <h4 class="mb-3">Opciones del Cajero</h4>
-            <a href="ver_pedidos.php" class="btn btn-primary w-100 mt-2">Ver Pedidos</a>
-            <a href="procesar_pago.php" class="btn btn-primary w-100 mt-2">Procesar Pagos</a>
+            <a href="mis_pedidos.php" class="btn btn-primary w-100 mt-2">Ver Pedidos</a>
+            <a href="crear_pedido.php" class="btn btn-primary w-100 mt-2">Crear Pedido</a>
         <?php endif; ?>
-
-        <hr>
-
-        <a href="perfil_usuario.php" class="btn btn-info w-100 mt-2">Mi Perfil</a>
-        <a href="logout.php" class="btn btn-danger w-100 mt-2">Cerrar Sesión</a>
 
     </div>
 </div>

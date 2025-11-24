@@ -24,7 +24,7 @@ require_role([1]);
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="perfil_usuario.php">Perfil del Usuario</a>
+                                <a class="nav-link" aria-current="page" href="perfil_usuario.php">Mi Perfil</a>
                             </li>
                         </ul>
                         <a href="logout.php">
@@ -39,10 +39,10 @@ require_role([1]);
             <h2 class="mb-4">Opciones del Administrador</h2>
             <hr>
                 <div class="mb-3">
-                    <label for="nombre" class="form-label">¿Deseas ver más de una lista?</label>
+                    <label for="nombre" class="form-label">¿Deseas cruzar más de una lista?</label>
                     <br>
-                    <a href="mas_listas.php">
-                        <button type="submit" class="btn btn-primary" style="text-aling: center; text-decoration: none;">Carta</button>
+                    <a href="cruce_tablas.php">
+                        <button type="submit" class="btn btn-primary" style="text-aling: center; text-decoration: none;">Listas</button>
                     </a>
                 </div>
                 <hr>
@@ -65,7 +65,7 @@ require_role([1]);
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Selecciona este boton para dirigirte a los mesas disponibles</label>
                     <br>
-                    <a href="mesas.php">
+                    <a href="ver_mesas.php">
                         <button type="submit" class="btn btn-primary" style="text-aling: center; text-decoration: none;">Mesas</button>
                     </a>
                 </div>

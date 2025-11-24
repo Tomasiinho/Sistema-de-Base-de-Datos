@@ -1,5 +1,9 @@
 <?php
-session_start();
+
+// Iniciar sesión solo si no existe una activa
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Verificar login
 function require_login() {
